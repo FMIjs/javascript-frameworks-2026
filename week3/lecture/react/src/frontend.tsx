@@ -24,3 +24,25 @@ if (import.meta.hot) {
   // The hot module reloading API is not available in production.
   createRoot(elem).render(app);
 }
+
+/**
+ * 
+ * useEffect
+ * useState
+ * useMemo
+ * useCallback
+ * useRef
+ * - - - - - - - - 
+ * useLayoutEffect
+ * useContext --> Context API
+ *  -- "State management" libraries like Redux, MobX, Zustand, etc. are built on top of this.
+ * useReducer
+ * - - ? ? - - - -
+ * useImperativeHandle
+ * useDebugValue
+ * useTransition
+ * useDeferredValue
+ * useId
+ * useSyncExternalStore
+ * useInsertionEffect
+ */
