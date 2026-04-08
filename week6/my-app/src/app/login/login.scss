@@ -1,0 +1,31 @@
+.login {
+  display: flex;
+  justify-content: center;
+  padding: 2rem 1rem;
+}
+
+.login__card {
+  width: 100%;
+  max-width: 22rem;
+}
+
+.login__form {
+  display: flex;
+  flex-direction: column;
+  gap: 0.25rem;
+}
+
+.login__field {
+  width: 100%;
+}
+
+.login__banner {
+  margin: 0 0 0.5rem;
+  font-size: 0.875rem;
+  color: var(--mat-sys-error);
+}
+
+.login__submit {
+  margin-top: 0.5rem;
+  width: 100%;
+}
