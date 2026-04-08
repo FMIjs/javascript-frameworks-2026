@@ -20,18 +20,6 @@ import { UserDetails } from '../user-details/user-details';
   changeDetection: ChangeDetectionStrategy.OnPush,
 })
 export class UserList {
-  // people = input.required<Person[]>(); -> always updating the list
-  //@Input() people: Person[] = [];
-
-  //protected readonly changeDetectorRef = inject(ChangeDetectorRef);
-
-  // constructor(changeDetectorRef: ChangeDetectorRef) {
-  //   // effect(() => {
-  //   //   this.people = [{ name: 'New one', age: 20 }, ...this.people];
-  //   //   console.log('people changed', this.people);
-  //   // });
-  // }
-
   protected readonly people = signal<Person[]>([]);
   constructor() {
     effect(() => {
