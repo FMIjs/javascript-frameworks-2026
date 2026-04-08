@@ -1,8 +1,8 @@
 import { Routes } from '@angular/router';
-import { authGuard } from './auth.guard';
-import { Login } from './login/login';
 import { UserList } from './user-list/user-list';
 import { UserDetails } from './user-details/user-details';
+import { Login } from './login/login';
+import { authGuard } from './auth.guard';
 
 const usersRoutes: Routes = [
   {
@@ -18,8 +18,8 @@ export const routes: Routes = [
   },
   {
     path: 'users',
-    component: UserList,
     canActivate: [authGuard],
+    component: UserList,
     children: [...usersRoutes],
   },
   {

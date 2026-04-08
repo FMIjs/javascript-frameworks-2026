@@ -1,3 +1,12 @@
+@let myValue = myFirstObservable$ | async;
+@if (myValue) {
+  <p>My first observable: {{ myValue | json }}</p>
+} @else {
+  No value yet
+}
+
+<p>My interval: {{ myInterval$ | async }}</p>
+
 <div class="obs-demo">
   <h1 class="obs-demo__title">Observables demo</h1>
   <p class="obs-demo__lead">
@@ -13,9 +22,7 @@
         <mat-card-title><code>of()</code> + <code>map</code></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="obs-demo__code">
-          of(10, 20, 30).pipe(map(n =&gt; n + 1), toArray())
-        </p>
+        <p class="obs-demo__code">of(10, 20, 30).pipe(map(n =&gt; n + 1), toArray())</p>
         <p class="obs-demo__result">{{ ofWithMapResult() }}</p>
       </mat-card-content>
     </mat-card>
@@ -37,9 +44,7 @@
         <mat-card-title><code>take(1)</code></mat-card-title>
       </mat-card-header>
       <mat-card-content>
-        <p class="obs-demo__code">
-          of('first', 'second', 'third').pipe(take(1))
-        </p>
+        <p class="obs-demo__code">of('first', 'second', 'third').pipe(take(1))</p>
         <p class="obs-demo__result">{{ takeOneResult() }}</p>
       </mat-card-content>
     </mat-card>

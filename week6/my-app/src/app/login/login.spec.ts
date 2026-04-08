@@ -1,7 +1,6 @@
 import { ComponentFixture, TestBed } from '@angular/core/testing';
-import { provideNoopAnimations } from '@angular/platform-browser/animations';
-import { provideRouter } from '@angular/router';
-import { Auth } from '../auth';
+
+import { firebaseTestProviders } from '../firebase-test-providers';
 import { Login } from './login';
 
 describe('Login', () => {
@@ -11,16 +10,7 @@ describe('Login', () => {
   beforeEach(async () => {
     await TestBed.configureTestingModule({
       imports: [Login],
-      providers: [
-        provideNoopAnimations(),
-        provideRouter([]),
-        {
-          provide: Auth,
-          useValue: {
-            signInWithEmail: () => Promise.resolve(),
-          },
-        },
-      ],
+      providers: [...firebaseTestProviders],
     }).compileComponents();
 
     fixture = TestBed.createComponent(Login);

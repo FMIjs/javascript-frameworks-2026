@@ -1,7 +1,5 @@
 # Step-by-step: Firebase authentication in Angular (demo script)
 
-Use this outline when walking students through the same flow as in **this** project (Angular 21 + `@angular/fire` + optional Auth emulator + Material login form).
-
 ---
 
 ## Part A — Firebase & tooling (before code)
@@ -141,7 +139,7 @@ firebase emulators:start --only auth
 | ----------------------------------------------- | ---------------------------- |
 | Web config + emulator URL                       | `src/app/firebase.config.ts` |
 | `provideFirebaseApp` / `provideAuth` / emulator | `src/app/app.config.ts`      |
-| `user$`, sign-in, sign-out                      | `src/app/auth.ts`            |
+| `user$`, sign-in, sign-out                      | `src/app/auth-service.ts`    |
 | Route guard                                     | `src/app/auth.guard.ts`      |
 | Routes                                          | `src/app/app.routes.ts`      |
 | Login form + redirect if already user           | `src/app/login/`             |

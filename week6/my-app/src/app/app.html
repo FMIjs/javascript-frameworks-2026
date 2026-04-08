@@ -204,12 +204,16 @@
 
 <main class="main">
   <div class="content">
-    <div class="left-side">
-      -- Router starts here --
+    <div>
       @if (user$ | async; as user) {
         <p>Welcome, {{ user.email }}!</p>
-        <button mat-button (click)="auth.logout()">Logout</button>
+        <button mat-button (click)="authService.logout()">Logout</button>
+      } @else {
+        <p>You are not logged in</p>
       }
+    </div>
+    <div class="left-side">
+      -- Router starts here --
       <router-outlet />
       -- Router ends here --
     </div>

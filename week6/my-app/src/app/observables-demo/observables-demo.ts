@@ -1,16 +1,17 @@
-import { Component, DestroyRef, inject, signal } from '@angular/core';
+import { AsyncPipe, JsonPipe } from '@angular/common';
+import { Component, DestroyRef, inject, OnDestroy, signal } from '@angular/core';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
 import { MatCardModule } from '@angular/material/card';
-import { interval, of } from 'rxjs';
-import { filter, map, take, toArray } from 'rxjs/operators';
+import { interval, of, Subject } from 'rxjs';
+import { map, take, takeUntil, toArray } from 'rxjs/operators';
 
 @Component({
   selector: 'app-observables-demo',
-  imports: [MatCardModule],
+  imports: [MatCardModule, AsyncPipe, JsonPipe],
   templateUrl: './observables-demo.html',
   styleUrl: './observables-demo.scss',
 })
-export class ObservablesDemo {
+export class ObservablesDemo implements OnDestroy {
   private readonly destroyRef = inject(DestroyRef);
 
   readonly mapFilterResult = signal<string>('…');
@@ -18,15 +19,43 @@ export class ObservablesDemo {
   readonly ofWithMapResult = signal<string>('…');
   readonly tickCount = signal<number | null>(null);
 
+  readonly myFirstSubject = new Subject<number>();
+  readonly myFirstObservable$ = this.myFirstSubject.asObservable();
+
+  readonly myDestroyRef = new Subject<void>();
+
+  readonly myInterval$ = interval(1000).pipe(
+    map((n) => 'tick ' + n),
+    takeUntil(this.myDestroyRef.asObservable()),
+  );
+
   constructor() {
-    of(1, 2, 3, 4, 5)
-      .pipe(
-        map((n) => n * 2),
-        filter((n) => n > 5),
-        toArray(),
-        takeUntilDestroyed(this.destroyRef),
-      )
-      .subscribe((arr) => this.mapFilterResult.set(arr.join(', ')));
+    this.myFirstSubject.next(1);
+    setTimeout(() => {
+      this.myFirstSubject.next(2);
+    }, 1000);
+    setTimeout(() => {
+      this.myFirstSubject.next(3);
+    }, 2000);
+    setTimeout(() => {
+      this.myFirstSubject.next(4);
+    }, 3000);
+    setTimeout(() => {
+      this.myFirstSubject.next(5);
+    }, 4000);
+
+    // this.myFirstObservable$
+    //   .pipe(
+    //     map((n) => n * 2),
+    //     // filter((n) => n > 5),
+    //     // toArray(),
+    //     takeUntilDestroyed(this.destroyRef),
+    //   )
+    //   .subscribe((arr) => {
+    //     console.log(arr);
+
+    //     //this.mapFilterResult.set(arr.join(', '));
+    //   });
 
     of('first', 'second', 'third')
       .pipe(take(1), takeUntilDestroyed(this.destroyRef))
@@ -41,7 +70,13 @@ export class ObservablesDemo {
       .subscribe((arr) => this.ofWithMapResult.set(arr.join(', ')));
 
     interval(1000)
-      .pipe(takeUntilDestroyed(this.destroyRef))
+      .pipe(takeUntil(this.myDestroyRef.asObservable()))
       .subscribe((n) => this.tickCount.set(n + 1));
+  }
+
+  ngOnDestroy(): void {
+    this.myDestroyRef.next();
+    this.myDestroyRef.complete();
+    this.myDestroyRef.unsubscribe();
   }
 }
