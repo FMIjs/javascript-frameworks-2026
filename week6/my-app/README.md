@@ -1,3 +1,7 @@
+# Authentication guide
+
+For a detailed step-by-step authentication setup, see [AUTHENTICATION-FLOW-GUIDE.md](./AUTHENTICATION-FLOW-GUIDE.md).
+
 # MyApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.
