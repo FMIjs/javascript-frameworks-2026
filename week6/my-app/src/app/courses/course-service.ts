@@ -4,8 +4,10 @@ import {
   Firestore,
   collection,
   collectionData,
+  deleteDoc,
   doc,
   getDocs,
+  updateDoc,
   writeBatch,
 } from '@angular/fire/firestore';
 import { Observable } from 'rxjs';
@@ -49,5 +51,14 @@ export class CourseService {
       batch.set(ref, course);
     }
     await batch.commit();
+  }
+
+  async updateCourse(course: Course): Promise<void> {
+    const { id, ...fields } = course;
+    await updateDoc(doc(this.firestore, COURSES_COLLECTION, id), fields);
+  }
+
+  async deleteCourse(id: string): Promise<void> {
+    await deleteDoc(doc(this.firestore, COURSES_COLLECTION, id));
   }
 }

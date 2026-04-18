@@ -1,0 +1,42 @@
+.courses-panel {
+  width: 100%;
+  max-width: 960px;
+}
+
+.heading {
+  margin: 0 0 1rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.table-wrap {
+  overflow: auto;
+  border-radius: 8px;
+  background: #fff;
+}
+
+.courses-table {
+  width: 100%;
+}
+
+.description-cell {
+  max-width: 28rem;
+  white-space: normal;
+  line-height: 1.4;
+}
+
+.actions-header,
+.mat-column-actions {
+  width: 12rem;
+  text-align: right;
+}
+
+.mat-column-actions {
+  white-space: nowrap;
+}
+
+td.empty {
+  text-align: center;
+  padding: 2rem;
+  color: rgba(0, 0, 0, 0.54);
+}
