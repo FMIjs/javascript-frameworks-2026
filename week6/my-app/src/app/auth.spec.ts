@@ -1,15 +1,18 @@
 import { TestBed } from '@angular/core/testing';
-import { Auth as FirebaseAuth } from '@angular/fire/auth';
-import { Auth } from './auth';
+import { MatSnackBarModule } from '@angular/material/snack-bar';
 
-describe('Auth', () => {
+import { AuthService } from './auth-service';
+import { firebaseTestProviders } from './firebase-test-providers';
+
+describe('AuthService', () => {
   beforeEach(() => {
     TestBed.configureTestingModule({
-      providers: [{ provide: FirebaseAuth, useValue: {} }],
+      imports: [MatSnackBarModule],
+      providers: [...firebaseTestProviders],
     });
   });
 
   it('should be created', () => {
-    expect(TestBed.inject(Auth)).toBeTruthy();
+    expect(TestBed.inject(AuthService)).toBeTruthy();
   });
 });
