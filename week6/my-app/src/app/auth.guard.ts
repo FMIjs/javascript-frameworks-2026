@@ -1,14 +1,20 @@
 import { inject } from '@angular/core';
 import { CanActivateFn, Router } from '@angular/router';
-import { map, take } from 'rxjs/operators';
+import { Auth } from '@angular/fire/auth';
+import { from } from 'rxjs';
+import { map, switchMap, take } from 'rxjs/operators';
 import { AuthService } from './auth-service';
 
-/** Runs only when navigating *to* this route — not when auth changes in place (see `App` for logout redirect). */
+/**
+ * Waits for Firebase Auth to finish restoring persistence, then checks the current user.
+ * Avoids treating a briefly-unknown session as logged out (see `App` for post-login redirect).
+ */
 export const authGuard: CanActivateFn = () => {
-  const auth = inject(AuthService);
+  const firebaseAuth = inject(Auth);
+  const authService = inject(AuthService);
   const router = inject(Router);
-  return auth.user$.pipe(
-    take(1),
+  return from(firebaseAuth.authStateReady()).pipe(
+    switchMap(() => authService.user$.pipe(take(1))),
     map((user) => (user ? true : router.createUrlTree(['/login']))),
   );
 };
