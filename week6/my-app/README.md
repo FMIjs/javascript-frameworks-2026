@@ -2,6 +2,10 @@
 
 For a detailed step-by-step authentication setup, see [AUTHENTICATION-FLOW-GUIDE.md](./AUTHENTICATION-FLOW-GUIDE.md).
 
+# Firebase / Cloud Firestore
+
+For Firestore setup—rules, `firebase.json`, `provideFirestore`, emulators, and the `courses` example—see **[FIREBASE-SETUP.md](./FIREBASE-SETUP.md)**.
+
 # MyApp
 
 This project was generated using [Angular CLI](https://github.com/angular/angular-cli) version 21.2.6.

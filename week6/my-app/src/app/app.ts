@@ -2,9 +2,10 @@ import { Component, DestroyRef, inject, signal } from '@angular/core';
 import { Router, RouterOutlet } from '@angular/router';
 import { Dashboard } from './dashboard/dashboard';
 import { AuthService } from './auth-service';
+import { CourseService } from './courses/course-service';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
-import { distinctUntilChanged, pairwise, tap } from 'rxjs/operators';
+import { pairwise } from 'rxjs/operators';
 
 @Component({
   selector: 'app-root',
@@ -21,6 +22,7 @@ export class App {
   protected readonly user$ = this.authService.user$;
 
   constructor() {
+    inject(CourseService);
     this.user$.pipe(pairwise(), takeUntilDestroyed(this.destroyRef)).subscribe(([prev, curr]) => {
       if (prev && !curr) {
         this.router.navigate(['/login']);
