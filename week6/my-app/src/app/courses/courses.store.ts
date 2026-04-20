@@ -1,4 +1,4 @@
-import { inject } from '@angular/core';
+import { computed, inject } from '@angular/core';
 import {
   patchState,
   signalStore,
@@ -18,18 +18,31 @@ import { Course } from '../types/course';
  * UI opens the edit dialog when `editingCourseId` is set and the entity exists in the collection.
  */
 export const CoursesStore = signalStore(
+  { providedIn: 'root' },
   withEntities<Course>(),
   withState({
     editingCourseId: null as string | null,
+    filterQuery: '',
   }),
-  withComputed(({ entities, editingCourseId }) => ({
-    courseUnderEdit: () => {
+  withComputed(({ entities, editingCourseId, filterQuery }) => ({
+    courseUnderEdit: computed(() => {
       const id = editingCourseId();
       if (id == null) {
         return undefined;
       }
       return entities().find((c) => c.id === id);
-    },
+    }),
+    filteredCourses: computed(() => {
+      const query = filterQuery().trim().toLowerCase();
+      if (!query) {
+        return entities();
+      }
+      return entities().filter((course) => {
+        const title = (course.name ?? '').toLowerCase();
+        const description = (course.description ?? '').toLowerCase();
+        return title.includes(query) || description.includes(query);
+      });
+    }),
   })),
   withMethods((store) => {
     const courseService = inject(CourseService);
@@ -52,11 +65,15 @@ export const CoursesStore = signalStore(
       finishEditing(): void {
         patchState(store, { editingCourseId: null });
       },
+
+      setFilterQuery(query: string): void {
+        patchState(store, { filterQuery: query });
+      },
     };
   }),
   withHooks({
     onDestroy(store) {
-      patchState(store, { editingCourseId: null });
+      patchState(store, { editingCourseId: null, filterQuery: '' });
     },
   }),
 );

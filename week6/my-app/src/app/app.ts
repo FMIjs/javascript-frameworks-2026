@@ -1,15 +1,15 @@
 import { Component, DestroyRef, inject, signal } from '@angular/core';
-import { Router, RouterOutlet } from '@angular/router';
+import { Router, RouterModule, RouterOutlet } from '@angular/router';
 import { User } from '@angular/fire/auth';
-import { Dashboard } from './dashboard/dashboard';
 import { AuthService } from './auth-service';
 import { CourseService } from './courses/course-service';
 import { AsyncPipe } from '@angular/common';
 import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { MatButtonModule } from '@angular/material/button';
 
 @Component({
   selector: 'app-root',
-  imports: [RouterOutlet, Dashboard, AsyncPipe],
+  imports: [RouterOutlet, RouterModule, AsyncPipe, MatButtonModule],
   templateUrl: './app.html',
   styleUrl: './app.scss',
 })

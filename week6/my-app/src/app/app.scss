@@ -1,0 +1,93 @@
+.p-xs {
+  padding: 0.5rem;
+}
+
+.flex {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.flex-column {
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.flex-1 {
+  flex: 1;
+}
+
+.w-100 {
+  width: 100%;
+}
+
+.content {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.top-bar {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  width: 100%;
+  padding: 0.75rem 1rem;
+  border: 1px solid rgba(0, 0, 0, 0.08);
+  border-radius: 0.75rem;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.auth-block {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.user-email {
+  margin: 0;
+  font-weight: 500;
+}
+
+.auth-muted {
+  margin: 0;
+  opacity: 0.7;
+}
+
+.logout-btn {
+  min-width: auto;
+}
+
+.nav-wrap {
+  display: flex;
+  justify-content: flex-end;
+}
+
+.main-nav {
+  display: inline-flex;
+  gap: 0.25rem;
+  padding: 0.25rem;
+  border-radius: 999px;
+  background: rgba(0, 0, 0, 0.04);
+}
+
+.main-nav a.active-link {
+  background: #fff;
+  border-radius: 999px;
+  font-weight: 600;
+  box-shadow: 0 1px 2px rgba(0, 0, 0, 0.12);
+}
+
+.main-content {
+  width: 100%;
+}
+
+@media (max-width: 720px) {
+  .top-bar {
+    flex-wrap: wrap;
+  }
+
+  .nav-wrap {
+    width: 100%;
+    justify-content: flex-start;
+  }
+}

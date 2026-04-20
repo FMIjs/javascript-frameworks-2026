@@ -24,7 +24,7 @@ export class CourseEditDialog {
   private readonly course = inject<Course>(MAT_DIALOG_DATA);
 
   readonly form = this.fb.nonNullable.group({
-    title: [this.course.title, [Validators.required]],
+    title: [this.course.name, [Validators.required]],
     description: [this.course.description],
     credits: [this.course.credits, [Validators.required, Validators.min(1)]],
   });

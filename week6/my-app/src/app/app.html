@@ -203,24 +203,43 @@
 </style>
 
 <main class="main">
+  @let user = user$ | async;
   <div class="content">
-    <div>
-      @if (user$ | async; as user) {
-        <p>Welcome, {{ user.email }}!</p>
-        <button mat-button (click)="authService.logout()">Logout</button>
+    <div class="top-bar">
+      <div class="flex-1"></div>
+      @if (user) {
+        <div class="auth-block">
+          <p class="user-email">Welcome, {{ user.email }}!</p>
+          <button mat-button class="logout-btn" (click)="authService.logout()">Logout</button>
+        </div>
       } @else {
-        <p>You are not logged in</p>
+        <p class="auth-muted">You are not logged in</p>
       }
+      <div class="nav-wrap flex-1">
+        @if (user) {
+          <nav class="main-nav">
+            <a
+              mat-button
+              routerLink="/users"
+              routerLinkActive="active-link"
+              [routerLinkActiveOptions]="{ exact: true }"
+            >
+              Users
+            </a>
+            <a mat-button routerLink="/courses" routerLinkActive="active-link">Courses</a>
+          </nav>
+        }
+      </div>
     </div>
-    <div class="left-side">
+    <div class="main-content">
       -- Router starts here --
       <router-outlet />
       -- Router ends here --
     </div>
-    <div class="divider" role="separator" aria-label="Divider"></div>
+    <!-- <div class="divider" role="separator" aria-label="Divider"></div>
     <div class="right-side">
       <app-dashboard />
-    </div>
+    </div> -->
   </div>
 </main>
 
