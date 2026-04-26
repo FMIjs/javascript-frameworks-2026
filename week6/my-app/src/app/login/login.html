@@ -1,0 +1,37 @@
+<form [formGroup]="form" class="d-flex flex-column gap-2">
+  <mat-radio-group formControlName="type">
+    <mat-radio-button value="email">Email</mat-radio-button>
+    <mat-radio-button value="google">Google</mat-radio-button>
+  </mat-radio-group>
+  @if (form.value.type === 'email') {
+    <mat-form-field>
+      <mat-label>Email</mat-label>
+      <input matInput formControlName="email" />
+      @if (form.get('email')?.errors?.['required']) {
+        <mat-error>Email is required</mat-error>
+      }
+      @if (form.get('email')?.errors?.['email']) {
+        <mat-error>Invalid email address</mat-error>
+      }
+    </mat-form-field>
+    <mat-form-field>
+      <mat-label>Password</mat-label>
+      <input matInput formControlName="password" type="password" />
+      @if (form.get('password')?.errors?.['required']) {
+        <mat-error>Password is required</mat-error>
+      }
+      @if (form.get('password')?.errors?.['minlength']) {
+        <mat-error>Password must be at least 6 characters long</mat-error>
+      }
+    </mat-form-field>
+  }
+  <button
+    mat-raised-button
+    color="primary"
+    type="submit"
+    [disabled]="form.invalid"
+    (click)="loginHandler()"
+  >
+    Login
+  </button>
+</form>

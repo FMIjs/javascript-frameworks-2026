@@ -1,0 +1,49 @@
+<section class="courses-panel">
+  <h1 class="heading">Courses</h1>
+
+  <mat-form-field appearance="outline">
+    <mat-label>Filter courses</mat-label>
+    <input
+      matInput
+      type="text"
+      placeholder="Search by name or description"
+      (input)="onFilterChange($any($event.target).value)"
+    />
+  </mat-form-field>
+
+  @if (filteredCourses(); as courses) {
+    <div class="table-wrap mat-elevation-z2">
+      <table mat-table [dataSource]="courses" class="courses-table">
+        <ng-container matColumnDef="name">
+          <th mat-header-cell *matHeaderCellDef>Name</th>
+          <td mat-cell *matCellDef="let row">{{ row.name }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="description">
+          <th mat-header-cell *matHeaderCellDef>Description</th>
+          <td mat-cell *matCellDef="let row" class="description-cell">{{ row.description }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="credits">
+          <th mat-header-cell *matHeaderCellDef>Credits</th>
+          <td mat-cell *matCellDef="let row">{{ row.credits }}</td>
+        </ng-container>
+
+        <ng-container matColumnDef="actions">
+          <th mat-header-cell *matHeaderCellDef class="actions-header">Actions</th>
+          <td mat-cell *matCellDef="let row">
+            <button type="button" mat-button color="primary" (click)="edit(row)">Edit</button>
+            <button type="button" mat-button color="warn" (click)="remove(row)">Delete</button>
+          </td>
+        </ng-container>
+
+        <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+        <tr mat-row *matRowDef="let row; columns: displayedColumns"></tr>
+
+        <tr class="mat-row" *matNoDataRow>
+          <td class="mat-cell empty" [attr.colspan]="displayedColumns.length">No courses yet.</td>
+        </tr>
+      </table>
+    </div>
+  }
+</section>

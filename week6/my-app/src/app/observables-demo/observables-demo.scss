@@ -1,0 +1,51 @@
+.obs-demo {
+  max-width: 56rem;
+  margin: 0 auto;
+  padding: 1.5rem 1rem 2rem;
+}
+
+.obs-demo__title {
+  margin: 0 0 0.5rem;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.obs-demo__lead {
+  margin: 0 0 1.5rem;
+  color: rgba(0, 0, 0, 0.65);
+  line-height: 1.5;
+}
+
+.obs-demo__lead code {
+  font-size: 0.9em;
+}
+
+.obs-demo__grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(16rem, 1fr));
+}
+
+.obs-demo__card mat-card-header {
+  padding-bottom: 0;
+}
+
+.obs-demo__code {
+  margin: 0 0 0.75rem;
+  font-family: ui-monospace, monospace;
+  font-size: 0.8rem;
+  line-height: 1.45;
+  color: rgba(0, 0, 0, 0.7);
+  word-break: break-word;
+}
+
+.obs-demo__result {
+  margin: 0;
+  font-size: 1.1rem;
+  font-weight: 500;
+}
+
+.obs-demo__muted {
+  font-weight: 400;
+  color: rgba(0, 0, 0, 0.55);
+}

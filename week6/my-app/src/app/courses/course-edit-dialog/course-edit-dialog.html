@@ -1,0 +1,29 @@
+<h2 mat-dialog-title>Edit course</h2>
+
+<mat-dialog-content [formGroup]="form" class="p-xs">
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Title</mat-label>
+    <input matInput formControlName="title" />
+    @if (form.controls.title.errors?.['required'] && form.controls.title.touched) {
+      <mat-error>Title is required</mat-error>
+    }
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Description</mat-label>
+    <textarea matInput formControlName="description" rows="3"></textarea>
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="full-width">
+    <mat-label>Credits</mat-label>
+    <input matInput type="number" formControlName="credits" min="1" />
+    @if (form.controls.credits.invalid && form.controls.credits.touched) {
+      <mat-error>Enter at least 1 credit</mat-error>
+    }
+  </mat-form-field>
+</mat-dialog-content>
+
+<mat-dialog-actions align="end">
+  <button mat-button type="button" (click)="cancel()">Cancel</button>
+  <button mat-flat-button type="button" color="primary" (click)="save()">Save</button>
+</mat-dialog-actions>

@@ -1,0 +1,68 @@
+@let myValue = myFirstObservable$ | async;
+@if (myValue) {
+  <p>My first observable: {{ myValue | json }}</p>
+} @else {
+  No value yet
+}
+
+<p>My interval: {{ myInterval$ | async }}</p>
+
+<div class="obs-demo">
+  <h1 class="obs-demo__title">Observables demo</h1>
+  <p class="obs-demo__lead">
+    Each stream uses
+    <code>takeUntilDestroyed(this.destroyRef)</code>
+    so subscriptions end when this component is destroyed (no leaks from
+    <code>interval</code>).
+  </p>
+
+  <div class="obs-demo__grid">
+    <mat-card class="obs-demo__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><code>of()</code> + <code>map</code></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="obs-demo__code">of(10, 20, 30).pipe(map(n =&gt; n + 1), toArray())</p>
+        <p class="obs-demo__result">{{ ofWithMapResult() }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="obs-demo__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><code>map</code> + <code>filter</code></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="obs-demo__code">
+          of(1..5).pipe(map(n =&gt; n * 2), filter(n =&gt; n &gt; 5), toArray())
+        </p>
+        <p class="obs-demo__result">{{ mapFilterResult() }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="obs-demo__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><code>take(1)</code></mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="obs-demo__code">of('first', 'second', 'third').pipe(take(1))</p>
+        <p class="obs-demo__result">{{ takeOneResult() }}</p>
+      </mat-card-content>
+    </mat-card>
+
+    <mat-card class="obs-demo__card" appearance="outlined">
+      <mat-card-header>
+        <mat-card-title><code>interval</code> + cleanup</mat-card-title>
+      </mat-card-header>
+      <mat-card-content>
+        <p class="obs-demo__code">interval(1000) — tick counter (stops on destroy)</p>
+        <p class="obs-demo__result">
+          @if (tickCount() === null) {
+            <span class="obs-demo__muted">First tick in 1s…</span>
+          } @else {
+            {{ tickCount() }} tick(s)
+          }
+        </p>
+      </mat-card-content>
+    </mat-card>
+  </div>
+</div>

@@ -1,0 +1,22 @@
+Counter
+
+<div [ngClass]="counterClasses()" [ngStyle]="{ 'font-size.px': counterValue() * 5 }">
+  {{ counterMessage() }}
+</div>
+
+<!-- Another usage of ngClass -->
+<!-- <div
+  [ngClass]="{ 'padding=10': true, 'green-border': counterValue() > 5 }"
+>
+  {{ counterSignal() }}
+</div> -->
+
+<button (click)="counterChange.emit({ message: 'Increment' })">Increment</button>
+@if (counterValue() !== 0) {
+  <button (click)="counterChange.emit({ message: 'Decrement' })">Decrement</button>
+}
+
+<!-- Usage of @defer -->
+<!-- @defer (when counterValue() !== 0) {
+  <button (click)="counterChange.emit({ message: 'Decrement' })">Decrement</button>
+} -->
