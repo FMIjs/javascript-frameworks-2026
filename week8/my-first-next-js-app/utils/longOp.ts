@@ -1,0 +1,1 @@
+export const longOp = (time = 10_000) => new Promise((resolve) => setTimeout(resolve, time));
