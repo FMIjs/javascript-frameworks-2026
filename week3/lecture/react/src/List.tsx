@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useState } from "react";
+import { useCallback, useEffect, useMemo, useState } from "react";
 
 export function List() {
   const [arr, setArr] = useState(["One", "Two", "Three"]);
@@ -6,6 +6,7 @@ export function List() {
     () => arr.filter((a) => a.includes("a")),
     [arr],
   );
+  
 
   useEffect(() => {
     const id = setTimeout(() => {
