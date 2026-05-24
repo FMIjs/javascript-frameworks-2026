@@ -1,0 +1,59 @@
+services:
+  mongo:
+    image: mongo:8
+    restart: unless-stopped
+    volumes:
+      - mongo_data:/data/db
+    ports:
+      - "27018:27017"
+    healthcheck:
+      test: ["CMD", "mongosh", "--quiet", "--eval", "db.adminCommand('ping').ok"]
+      interval: 5s
+      timeout: 5s
+      retries: 20
+
+  server:
+    build:
+      context: ./server
+      target: dev
+    image: week10-server-dev
+    environment:
+      NODE_ENV: development
+      PORT: "4000"
+      MONGO_URL: mongodb://mongo:27017
+      MONGO_DB: todos
+    ports:
+      - "4000:4000"
+      - "9229:9229"
+    volumes:
+      - ./server/src:/app/src
+      - ./server/package.json:/app/package.json
+      - ./server/package-lock.json:/app/package-lock.json
+      - ./server/tsconfig.json:/app/tsconfig.json
+      - server_node_modules:/app/node_modules
+    depends_on:
+      mongo:
+        condition: service_healthy
+    restart: unless-stopped
+
+  client:
+    build:
+      context: ./client
+      target: dev
+    image: week10-client-dev
+    environment:
+      CHOKIDAR_USEPOLLING: "true"
+      VITE_HMR_CLIENT_PORT: "8080"
+    ports:
+      - "8080:5173"
+    volumes:
+      - ./client:/app
+      - client_node_modules:/app/node_modules
+    depends_on:
+      - server
+    restart: unless-stopped
+
+volumes:
+  mongo_data:
+  server_node_modules:
+  client_node_modules:
